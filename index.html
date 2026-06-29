@@ -15,6 +15,21 @@
       padding: 5vw;
     }
 
+    /* 横画面推奨 */
+    #orientationNotice {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    @media screen and (orientation: portrait) {
+      #orientationNotice {
+        color: red;
+        font-weight: bold;
+      }
+    }
+
     #text {
       font-size: min(8vw, 60px);
       line-height: 1.6;
@@ -56,6 +71,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <!-- 初回言語選択 -->
@@ -68,6 +84,9 @@
   <button onclick="selectLang('zh_tw')">繁体中文</button>
   <button onclick="selectLang('ko')">한국어</button>
 </div>
+
+<!-- 横画面推奨 -->
+<p id="orientationNotice">※横画面推奨（スマホは横向きでご覧ください）</p>
 
 <!-- 字幕 -->
 <h1 id="text" style="display:none;"></h1>
@@ -124,14 +143,15 @@ window.selectLang = function(lang) {
   document.getElementById("langSelect").style.display = "none";
   document.getElementById("text").style.display = "block";
   document.getElementById("settingsBtn").style.display = "block";
+  document.getElementById("orientationNotice").style.display = "block";
 
   updateText();
 };
 
 // サイズ変更
 window.changeSize = function(n) {
-  size += n;
-  document.getElementById("text").style.fontSize = "min(" + size + "vw, 80px)";
+  size = Math.max(4, Math.min(20, size + n));
+  document.getElementById("text").style.fontSize = size + "vw";
 };
 
 // 設定開閉
