@@ -142,7 +142,8 @@ window.toggleSettings = function() {
 // 表示更新
 function updateText() {
   if (latestData && currentLang) {
-    document.getElementById("text").textContent = latestData[currentLang];
+    document.getElementById("text").innerHTML =
+      latestData[currentLang].replace(/\n/g, "<br>");
   }
 }
 
